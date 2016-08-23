@@ -1,0 +1,7 @@
+{
+  "name": "tavisca-hiring",
+  "short_name": "tavisca-hiring",
+  "description": "hiring app collects data entered by freshers and saves it on spreadsheet",
+  "start_url": "/",
+  "display": "standalone"
+}

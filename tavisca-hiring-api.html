@@ -1,0 +1,72 @@
+<link rel="import" href="../polymer/polymer.html" />
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../t-shared-lib/t-provider-behavior.html">
+
+<dom-module id="tavisca-hiring-api">
+    <template>
+        <iron-ajax 
+        	id="ajaxCall" 
+        	method="PUT" 
+        	content-type="application/json" 
+        	handle-as="json"
+        	url="https://sheets.googleapis.com/v4/spreadsheets/1vdsPI8u4n4CLPoWx3k4kuKM4kmz1wcjWWPBWxZFub1I/values/Sheet1!A1:D5?valueInputOption=USER_ENTERED"
+        	verbose>
+        </iron-ajax>
+    </template>
+</dom-module>
+<script>
+    (function() {
+
+        'use strict'
+
+        Polymer({
+            is: 'tavisca-hiring-api',
+
+            listeners: {
+                'ajaxCall.response': '_successCallback',
+                'ajaxCall.error': '_errorCallback'
+            },
+
+            properties: {
+            },
+
+            /*
+             * <p>Method to book cars</p>
+             */
+            submit: function(request) {
+
+                if (!request) {
+                    throw Error("submit request is mandetory");
+                }
+
+                if (this._validateApiMeta()) {                
+                    this.$.ajaxCall.url = this._getUrl();
+                    this.$.ajaxCall.body = JSON.stringify(request);
+                    this.$.ajaxCall.generateRequest();
+                }
+            },
+
+            /*
+             * <p>Success callback</p>
+             */
+            _successCallback: function(event) {
+                this.fire(this.nodeName.toLowerCase() + '-success', {
+                	status: 'success',
+                	message: 'Details saved successfully!'
+                });
+            },
+
+
+            /*
+             * <p>error callback</p>
+             */
+            _errorCallback: function(event) {
+                this.fire(this.nodeName.toLowerCase() + '-error', {
+                	status: 'failure',
+                	message: 'Connection error occured, please try again!'
+                });
+            }
+
+        });
+    })();
+</script>
