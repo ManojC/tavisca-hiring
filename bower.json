@@ -15,7 +15,8 @@
     "t-dropdown": "atomelements/t-dropdown#^2.0.5",
     "t-header": "travelnxtelements/t-header#^1.5.7",
     "t-app-footer": "travelnxtelements/t-app-footer#^1.2.4",
-    "t-notify": "atomelements/t-notify#^1.1.1"
+    "t-notify": "atomelements/t-notify#^1.1.1",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

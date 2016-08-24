@@ -6,10 +6,11 @@
     <template>
         <iron-ajax 
         	id="ajaxCall" 
-        	method="PUT" 
-        	content-type="application/json" 
-        	handle-as="json"
-        	url="https://sheets.googleapis.com/v4/spreadsheets/1vdsPI8u4n4CLPoWx3k4kuKM4kmz1wcjWWPBWxZFub1I/values/Sheet1!A1:D5?valueInputOption=USER_ENTERED"
+        	method="POST" 
+        	content-type="application/json"
+            headers='{"Access-Control-Allow-Origin": "*"}'
+        	handle-as="jsonp"
+        	url="https://script.google.com/a/macros/tavisca.com/s/AKfycbyqvxqXgHHOmyL4xgg-j3uIS1lpuEn7FSCZ_NdaDNom2j2oR9w/exec"
         	verbose>
         </iron-ajax>
     </template>
@@ -39,17 +40,15 @@
                     throw Error("submit request is mandetory");
                 }
 
-                if (this._validateApiMeta()) {                
-                    this.$.ajaxCall.url = this._getUrl();
-                    this.$.ajaxCall.body = JSON.stringify(request);
-                    this.$.ajaxCall.generateRequest();
-                }
+                this.$.ajaxCall.body = JSON.stringify(request);
+                this.$.ajaxCall.generateRequest();
             },
 
             /*
              * <p>Success callback</p>
              */
             _successCallback: function(event) {
+                console.log(event.detail);
                 this.fire(this.nodeName.toLowerCase() + '-success', {
                 	status: 'success',
                 	message: 'Details saved successfully!'
@@ -61,6 +60,7 @@
              * <p>error callback</p>
              */
             _errorCallback: function(event) {
+                console.log(event.detail);
                 this.fire(this.nodeName.toLowerCase() + '-error', {
                 	status: 'failure',
                 	message: 'Connection error occured, please try again!'
